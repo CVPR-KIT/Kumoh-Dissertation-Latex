@@ -1,0 +1,75 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Inner Title Page (same style, black text)
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\newgeometry{
+	paperwidth=7.48in,
+	paperheight=10.24in,
+	top=0.98in,
+	bottom=0.98in,
+	left=0.98in,
+	right=0.98in,
+	headsep=0pt,
+	footskip=0pt
+}
+
+% -------- EDIT CONTENT ONLY ----------
+\newcommand{\innerSupervisorLabel}{Supervisor}
+\newcommand{\ThesisSupervisorName}{Kim Gil Dong}
+
+\newcommand{\innerPresentedLine}{This Thesis is Presented for the Doctor of\\
+	Philosophy}
+	
+
+
+% ------------------------------------
+
+\begin{titlepage}
+	\thispagestyle{empty}
+	
+	\begin{center}
+		
+		\vspace*{0.3cm}
+		
+		% Title (match your cover sizing choice)
+		{\fontsize{20pt}{24pt}\selectfont \ThesisTitle\par}
+		
+		% Space to supervisor
+		\vspace{1.8cm}
+		
+		% Supervisor line (label + name on one line)
+		{\fontsize{12pt}{14pt}\selectfont
+			\innerSupervisorLabel\hspace{1.5em}\ThesisSupervisorName\par}
+		
+		% Space to presented line
+		\vspace{0.6cm}
+		
+		% Presented line (2 lines)
+		{\fontsize{14pt}{18pt}\selectfont \innerPresentedLine\par}
+		
+		% Space to date
+		\vspace{1.8cm}
+		
+		{\fontsize{12pt}{14pt}\selectfont \ThesisDate\par}
+		
+		% Space to school
+		\vspace{1.0cm}
+		
+		{\fontsize{12pt}{14pt}\selectfont
+			\ThesisSchool\par
+			%\vspace{0.4cm}
+			\ThesisUniversity\par}
+		
+		% Department
+		\vspace{1.0cm}
+		{\fontsize{12pt}{14pt}\selectfont \ThesisDepartment\par}
+		
+		% Author
+		\vspace{1.0cm}
+		{\fontsize{14pt}{16pt}\selectfont \ThesisAuthor\par}
+		
+		\vfill
+	\end{center}
+\end{titlepage}
+
+\restoregeometry
