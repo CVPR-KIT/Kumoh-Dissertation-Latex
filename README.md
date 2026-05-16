@@ -1,4 +1,5 @@
 # Kumoh National Institute of Technology (KIT) - Dissertation LaTeX Template
+**We are not responsible for any consequences and losses caused by the use of this template**
 
 This repository contains a clean, organized, and highly customizable LaTeX template for writing a Master's or Doctoral dissertation at the Kumoh National Institute of Technology (KIT).
 
