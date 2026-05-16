@@ -41,7 +41,3 @@ Because this template uses modern fonts and requires Korean language support (vi
 3. Write your abstracts in `abstract-eng.tex` and `abstract-kr.tex`.
 4. Add your content into `chapter1.tex`, `chapter2.tex`, etc.
 
-## 📝 Template Features
-- **Page Numbering**: The template automatically handles Roman numerals (`i, ii, iii`) for the front matter and Arabic numerals (`1, 2, 3`) for the main body. It also features the required `- 1 -` formatting in the footer.
-- **TOC Spacing**: The Table of Contents is precisely formatted to mimic the exact spacing of the official DOCX template provided by the university.
-- **Section Numbering**: Chapters are numbered with Roman numerals (`Chapter I, Chapter II`), while internal sections, tables, and figures retain standard decimal formatting (`2.1`, `Figure 2.1`).
