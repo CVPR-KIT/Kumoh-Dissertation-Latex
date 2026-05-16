@@ -27,13 +27,12 @@ To successfully compile this template, we recommend using the following toolchai
 - `references.bib`: Your BibTeX references.
 
 ### 2. Compilation Instructions
-Because this template uses modern fonts and requires Korean language support (via the `kotex` package), it is highly recommended to compile the document using **XeLaTeX**. 
+Because this template uses modern fonts and requires Korean language support (via the `kotex` package), it must be compiled using **XeLaTeX**.
 
-In TeXstudio (or your preferred editor), set your default compiler to XeLaTeX and your bibliography tool to Biber. Your build sequence should be:
-1. `xelatex thesis.tex`
-2. `biber thesis` (to process the bibliography)
-3. `xelatex thesis.tex`
-4. `xelatex thesis.tex`
+**Using TeXstudio (Recommended):**
+1. Open `thesis.tex` in TeXstudio.
+2. Ensure your default compiler is set to XeLaTeX (Options > Configure TeXstudio > Build > Default Compiler: XeLaTeX).
+3. Simply press **F5** (Build & View) or **F6** (Compile). TeXstudio will automatically handle the entire build sequence and bibliography for you!
 
 ### 3. Personalizing the Template
 1. Open `meta.tex` and fill in your specific details (e.g., `\newcommand{\ThesisTitle}{Your Title}`).
