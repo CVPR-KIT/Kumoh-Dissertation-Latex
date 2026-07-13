@@ -1,5 +1,10 @@
 \begin{appendices}
 
+% Appendix floats and equations use appendix letters, e.g., Figure A.1.
+\renewcommand{\thefigure}{\Alph{chapter}.\arabic{figure}}
+\renewcommand{\thetable}{\Alph{chapter}.\arabic{table}}
+\renewcommand{\theequation}{\Alph{chapter}.\arabic{equation}}
+
 %Some Table of Contents entry formatting
 \addtocontents{toc}{\protect\renewcommand{\protect\cftchappresnum}{\appendixname\space}}
 \addtocontents{toc}{\protect\renewcommand{\protect\cftchapnumwidth}{7em}}

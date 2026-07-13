@@ -1,43 +1,65 @@
-# Kumoh National Institute of Technology (KIT) - Dissertation LaTeX Template
-**We are not responsible for any consequences and losses caused by the use of this template**
+# Kumoh National Institute of Technology Dissertation LaTeX Template
 
-This repository contains a clean, organized, and highly customizable LaTeX template for writing a Master's or Doctoral dissertation at the Kumoh National Institute of Technology (KIT).
+**Disclaimer:** This community-maintained template is provided as-is. Users are responsible for confirming that the final thesis satisfies the current official university requirements.
 
-## 📄 Official Guidelines
-This template was strictly built and formatted to adhere to the official KIT thesis formatting guidelines. 
+This repository contains a LaTeX template for Master's and Doctoral dissertations at Kumoh National Institute of Technology (KIT). The template has been refreshed from a completed 2026 dissertation project so that the page size, margins, front matter, table/list formatting, citation setup, and appendix structure match the latest working style in that project.
 
-Reference: [KIT Official Thesis Guidelines (Notice No. 551220)](https://cam.kumoh.ac.kr/cam/sub0603.do?mode=view&articleNo=551220&article.offset=0&articleLimit=10)
+## Official Guidelines
 
-## 🛠️ Prerequisites
+The reference documents from KIT are included in `학위논문작성법(양식)/`. Check the university website for the newest rules before final submission.
 
-To successfully compile this template, we recommend using the following toolchain:
+Previous reference notice: [KIT Official Thesis Guidelines](https://cam.kumoh.ac.kr/cam/sub0603.do?mode=view&articleNo=551220&article.offset=0&articleLimit=10)
 
-1. **LaTeX Distribution**: We used [MiKTeX](https://miktex.org/download) to install and manage the necessary LaTeX packages. 
-2. **LaTeX Editor**: We used [TeXstudio](https://www.texstudio.org/) as the IDE for writing and compiling the documents.
+## Project Structure
 
-*(Note: Other distributions like TeX Live and editors like VS Code or Overleaf are also fully supported).*
+The working LaTeX project is in `thesis-main/`.
 
-## 🚀 How to Use
+- `thesis.tex`: main file to compile; controls the order of pages and chapters.
+- `preamble.tex`: packages, page geometry, fonts, citations, headings, theorem styles, and table/list formatting.
+- `meta.tex`: thesis title, author, department, supervisor, date, and committee names.
+- `cover.tex`, `titlePage.tex`, `approvalPage.tex`, `gks.tex`: front-matter page layouts.
+- `abstract-eng.tex`, `abstract-kr.tex`, `acknowledgements.tex`: front-matter content.
+- `notations.tex`, `abbreviations.tex`: optional lists included before the main chapters.
+- `chapter*.tex`, `appendix.tex`: sample thesis content.
+- `references.bib`: BibTeX bibliography database.
+- `fonts/`: bundled Korean and monospace fonts used by the template.
 
-### 1. File Structure
-- `thesis.tex`: The main document file. This is the **only** file you need to compile. It acts as the structural skeleton of your thesis.
-- `preamble.tex`: Contains all package imports, font configurations, and styling rules. You rarely need to edit this unless you want to add new packages.
-- `meta.tex`: Contains your personal metadata (Thesis Title, Author Name, Dates, Department, etc.). **Update this file first.**
-- `approvalPage.tex`: Contains the tabular layout for your committee member signatures.
-- `chapter*.tex` / `appendix.tex`: The actual content files for your thesis.
-- `references.bib`: Your BibTeX references.
+## Compilation
 
-### 2. Compilation Instructions
-Because this template uses modern fonts and requires Korean language support (via the `kotex` package), it must be compiled using **XeLaTeX**.
+The refreshed template uses `natbib` and BibTeX. The tested build sequence is:
 
-**Using TeXstudio (Recommended):**
-1. Open `thesis.tex` in TeXstudio.
-2. Ensure your default compiler is set to XeLaTeX (Options > Configure TeXstudio > Build > Default Compiler: XeLaTeX).
-3. Simply press **F5** (Build & View) or **F6** (Compile). TeXstudio will automatically handle the entire build sequence and bibliography for you!
+```powershell
+cd thesis-main
+pdflatex -interaction=nonstopmode -halt-on-error thesis.tex
+bibtex thesis
+pdflatex -interaction=nonstopmode -halt-on-error thesis.tex
+pdflatex -interaction=nonstopmode -halt-on-error thesis.tex
+```
 
-### 3. Personalizing the Template
-1. Open `meta.tex` and fill in your specific details (e.g., `\newcommand{\ThesisTitle}{Your Title}`).
-2. Open `approvalPage.tex` to adjust your specific committee members.
-3. Write your abstracts in `abstract-eng.tex` and `abstract-kr.tex`.
-4. Add your content into `chapter1.tex`, `chapter2.tex`, etc.
+In TeXstudio, set the default compiler to `pdfLaTeX` and the bibliography tool to `BibTeX`. In VS Code LaTeX Workshop, use the `latexmk (pdflatex)` recipe or another recipe that runs BibTeX.
 
+## Citation Style
+
+Citation style is controlled in `preamble.tex`:
+
+```latex
+\numericcitationstrue   % numeric citations, e.g., [1]
+% \numericcitationsfalse % author-year citations, e.g., (Author, 2026)
+```
+
+The template defines compatibility aliases:
+
+```latex
+\textcite{key}   % maps to \citet{key}
+\parencite{key}  % maps to \citep{key}
+```
+
+## Personalizing the Template
+
+1. Edit `thesis-main/meta.tex` first.
+2. Replace the sample abstracts, acknowledgements, chapters, appendices, notation list, and abbreviation list.
+3. If the GKS scholarship page does not apply, comment the `gks.tex` block in `thesis.tex`.
+4. For a Master's thesis, remove unused committee rows from `approvalPage.tex`.
+5. Add references to `references.bib` and cite them from the chapter files.
+
+Keep a generated `thesis.pdf` for reviewers, but do not rely on it as proof of compliance; always compare the final PDF against the latest official KIT documents.

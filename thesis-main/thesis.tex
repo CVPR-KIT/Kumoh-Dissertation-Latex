@@ -1,65 +1,68 @@
 % ---------------------------------------------------
-% 논문 기본 설정 및 패키지 불러오기
 % Basic Document Setup and Packages
 % ---------------------------------------------------
-\documentclass[english,11pt,twoside]{report}   %12 point font for Times New Roman
+\documentclass[english,10pt,twoside]{report}
 \input{preamble.tex}
 
 \begin{document}
+\hypersetup{pageanchor=false}
 
 % ---------------------------------------------------
-% 메타 정보 (논문 제목, 저자 등)
-% Meta Information (Title, Author, etc.)
+% Meta Information (Title, Author, Committee, etc.)
 % ---------------------------------------------------
 \input{meta.tex}
 
 % ---------------------------------------------------
-% 표지
 % Cover Page
 % ---------------------------------------------------
 \input{cover.tex}
 \currentpdfbookmark{Cover Page}{coverPage}
 
 % ---------------------------------------------------
-% GKS 장학금 페이지
-% GKS Scholarship Page
+% Optional GKS Scholarship Page
+% Comment this block if it does not apply.
 % ---------------------------------------------------
+\pagenumbering{roman}
+\setcounter{page}{1}
+\pagestyle{empty}
+\hypersetup{pageanchor=true}
 \input{gks.tex}
 \currentpdfbookmark{Scholarship Page}{scholarship}
+\setcounter{page}{2}
 
 % ---------------------------------------------------
-% 내지 표지
 % Inner Cover Page
 % ---------------------------------------------------
 \input{cover.tex}
+\setcounter{page}{3}
 
 % ---------------------------------------------------
-% 속표지
 % Title Page
 % ---------------------------------------------------
 \input{titlePage.tex}
 \currentpdfbookmark{Title Page}{titlePage}
+\setcounter{page}{4}
 
 % ---------------------------------------------------
-% 인준지 (논문 승인 페이지)
 % Approval Page
 % ---------------------------------------------------
 \input{approvalPage.tex}
+\setcounter{page}{5}
+
+
 
 % ---------------------------------------------------
-% 영문 초록 및 국문 요약
-% Abstract (English and Korean)
-% ---------------------------------------------------
-\input{abstract-eng.tex}
-\input{abstract-kr.tex}
-
-% ---------------------------------------------------
-% 목차
-% Table of Contents
+% Abstracts
 % ---------------------------------------------------
 \pagestyle{empty}
-\addtocontents{toc}{\protect\thispagestyle{empty}}
+\input{abstract-eng.tex}
+\input{abstract-kr.tex}
+\clearpage
 
+% ---------------------------------------------------
+% Table of Contents
+% ---------------------------------------------------
+\pagestyle{plain}
 \renewcommand\contentsname{Table of Contents}
 
 \begin{singlespace}
@@ -70,22 +73,16 @@
 \clearpage
 
 % ---------------------------------------------------
-% 표 목차
 % List of Tables
 % ---------------------------------------------------
-\pagestyle{plain}
-\pagenumbering{roman}
-\setcounter{page}{1}
-
 \addcontentsline{toc}{chapter}{List of Tables}
 \begin{singlespace}
-	\setlength\cftbeforetabskip{\baselineskip}
-	\listoftables
+    \setlength\cftbeforetabskip{\baselineskip}
+    \listoftables
 \end{singlespace}
 \clearpage
 
 % ---------------------------------------------------
-% 그림 목차
 % List of Figures
 % ---------------------------------------------------
 \addcontentsline{toc}{chapter}{List of Figures}
@@ -96,21 +93,18 @@
 \clearpage
 
 % ---------------------------------------------------
-% 기호 설명
-% Nomenclature
+% List of Notations and Abbreviations
 % ---------------------------------------------------
-\printnomenclature
-\clearpage
+\input{notations.tex}
+\input{abbreviations.tex}
 
 % ---------------------------------------------------
-% 비고 사항
-% Remark
+% Optional Remark Page
 % ---------------------------------------------------
-\input{remark.tex}
+%\input{remark.tex}
 
 % ---------------------------------------------------
-% 본문 시작 (챕터)
-% Main Body (Chapters)
+% Main Body
 % ---------------------------------------------------
 \clearpage
 \pagenumbering{arabic}
@@ -123,29 +117,29 @@
 \input{chapter5.tex}
 
 % ---------------------------------------------------
-% 참고 문헌
 % References
 % ---------------------------------------------------
-\setlength\bibitemsep{\baselineskip}
-\printbibliography[title={References}]
+\renewcommand{\bibname}{References}
 \addcontentsline{toc}{chapter}{References}
+\ifnumericcitations
+  \bibliographystyle{unsrtnat}
+\else
+  \bibliographystyle{plainnat}
+\fi
+\bibliography{references}
 
 % ---------------------------------------------------
-% 감사의 글
 % Acknowledgments
 % ---------------------------------------------------
-\addcontentsline{toc}{chapter}{Acknowledgments}
 \input{acknowledgements.tex}
 
 % ---------------------------------------------------
-% 부록
 % Appendices
 % ---------------------------------------------------
 \input{appendix.tex}
 
 % ---------------------------------------------------
-% 오류 방지를 위한 클리어 페이지
-% Clearpage to prevent incorrect page numbering
+% Clear page to prevent incorrect page numbering
 % ---------------------------------------------------
 \cleardoublepage
 

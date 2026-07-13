@@ -1,7 +1,7 @@
 %\usepackage[a4paper,hmargin=3.5cm,vmargin=5.3cm,head=1.5cm,foot=3.2cm]{geometry}
 \usepackage[
-paperwidth=7.48in,
-paperheight=10.24in,
+paperwidth=190mm,
+paperheight=260mm,
 top=0.98in,
 bottom=0.98in,
 left=0.98in,
@@ -13,7 +13,6 @@ footskip=0.4in
 % If you use headers/footers later:
 %\setlength{\headheight}{0pt}
 
-\usepackage[bookmarks=true, hidelinks]{hyperref}     % hyperlink
 \usepackage{url}          % simple URL typesetting
 
 % https://tex.stackexchange.com/questions/47576/combining-ifxetex-and-ifluatex-with-the-logical-or-operation
@@ -34,13 +33,14 @@ footskip=0.4in
   % https://tex.stackexchange.com/a/547153/56364
   % \usepackage{stix}
   \usepackage{amssymb}
+  \usepackage{amsthm}
   \usepackage{fontspec}
   \usepackage{unicode-math}
 
   \defaultfontfeatures{Scale=MatchLowercase,Ligatures=TeX}
   % \setmainfont{STIX Two Text}
   \setmainfont{Noto Serif}
-  \setmathfont{TeX Gyre Schola Math}
+  \setmathfont{texgyreschola-math.otf}
   \usepackage[scale=0.8]{noto-mono}
   \setmonofont{Noto Sans Mono}
   % small url fonts
@@ -58,15 +58,15 @@ footskip=0.4in
     \setCJKmainfont[
       Path=fonts/,
       Extension=.otf,
-      BoldFont=NotoSerifkr-Bold,
+      BoldFont=NotoSerifKR-Bold,
       AutoFakeSlant,
-      Ligatures=TeX]{NotoSerifkr-Regular.otf}
+      Ligatures=TeX]{NotoSerifKR-Regular.otf}
     \setCJKsansfont[
       Path=fonts/,
       Extension=.otf,
-      BoldFont=NotoSerikr-Bold,
+      BoldFont=NotoSerifKR-Bold,
       AutoFakeSlant,
-      Ligatures=TeX]{NotoSerifkr-Regular.otf}
+      Ligatures=TeX]{NotoSerifKR-Regular.otf}
     \setCJKmonofont[
       Path=fonts/,
       Extension=.ttf,
@@ -83,15 +83,15 @@ footskip=0.4in
       BoldFont=*-Bold,
       Extension=.otf,
       AutoFakeSlant,
-      Ligatures=TeX]{NotoSerifkr}
+      Ligatures=TeX]{NotoSerifKR}
     \hangulbyhangulfont=1
     \setmainfont{Noto Serif}
-    \setmathfont{TeX Gyre Schola Math}
+    \setmathfont{texgyreschola-math.otf}
     \usepackage[scale=0.8]{noto-mono}
     \setmonofont{Noto Sans Mono}
   \fi
 \else
-  % pdflatex doesn't work due to siunitx and kotex conflict
+  % pdfLaTeX fallback for broad compatibility with MiKTeX/TeX Live installations
   % https://t.co/PgBfFh9rTU?amp=1
   \usepackage{amsmath,amsthm,amsfonts}
   \usepackage[T1]{fontenc}
@@ -113,26 +113,62 @@ footskip=0.4in
 \renewcommand{\floatpagefraction}{0.1} % one figure in one page
 
 \usepackage[english]{babel}    % babel set language
-\usepackage[bibencoding=utf8,backend=biber,sorting=none,bibstyle=phys]{biblatex}  %reference manager
+
+% NeurIPS-style text fonts and citations, while keeping the thesis layout.
+% The official NeurIPS style uses Times/Helvetica and natbib.
+\usepackage{times}
+
+% Citation style switch:
+%   \numericcitationsfalse -> author-year citations, e.g. (Farronato et al., 2025)
+%   \numericcitationstrue  -> numeric citations, e.g. [1]
+\newif\ifnumericcitations
+\numericcitationstrue
+
+\ifnumericcitations
+  \usepackage[numbers,square]{natbib}
+\else
+  \usepackage[authoryear,round]{natbib}
+\fi
+\newcommand{\textcite}{\citet}
+\newcommand{\parencite}{\citep}
 \usepackage{csquotes}
 
 \usepackage{setspace}   %use this package to set linespacing as desired
 \doublespacing
+\emergencystretch=3em
 \usepackage{afterpage}    % separate page for floats and tables
 \usepackage{titlefoot}    % keywords on footnote
-\usepackage{bookmark}
 \usepackage[explicit]{titlesec}  %title control and formatting
 \usepackage[titles]{tocloft}  %table of contents control and formatting
 \usepackage[page]{appendix}  %for appendices
 \usepackage[normalem]{ulem}  %for underlined section titles
 
 \usepackage{graphicx}  %for images and plots
-\usepackage[figuresright]{rotating}  %for rotated, landscape images
+\usepackage{pdfpages}  %for inserting the signed approval page
+\usepackage[figuresright]{rotating}  %for legacy rotated floats
+\usepackage{pdflscape}  % rotate landscape pages in PDF viewers
 \usepackage{adjustbox}    % fit table to page width
 \usepackage{algorithm}      % algorithm
 \usepackage{algpseudocode}  % algorithm
 
+\newenvironment{landscapefigure}[1][p]{%
+  \begin{landscape}%
+  \begin{figure}[#1]%
+}{%
+  \end{figure}%
+  \end{landscape}%
+}
+
+\newenvironment{landscapetable}[1][p]{%
+  \begin{landscape}%
+  \begin{table}[#1]%
+}{%
+  \end{table}%
+  \end{landscape}%
+}
+
 \usepackage{booktabs}     % proessional-quality tables
+\usepackage{longtable}    % multipage tables
 \usepackage{multicol} 		% use multicol in table
 \usepackage{multirow} 		% use multirow in table
 
@@ -145,51 +181,48 @@ footskip=0.4in
 \usepackage{kotex} % Korean support in XeLaTeX
 
 
-
+\usepackage[
+  bookmarks=true,
+  %colorlinks=true,
+  %citecolor=blue,
+  %linkcolor=blue,
+  urlcolor=blue
+]{hyperref}     % hyperlink; load after natbib so citation links work
+\usepackage{bookmark}
 \usepackage[noabbrev,nameinlink]{cleveref}		% for multiple cross-reference
 \usepackage[intoc]{nomencl}  % nomenclature
 \makenomenclature
 \setlength{\nomitemsep}{-\parsep}
 \setlength{\nomlabelwidth}{1.7cm}
 
+% Theorem-like environments
+\theoremstyle{plain}
+\newtheorem{theorem}{Theorem}[chapter]
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{proposition}[theorem]{Proposition}
+\theoremstyle{definition}
+\newtheorem{assumption}[theorem]{Assumption}
+\renewcommand{\thetheorem}{\arabic{chapter}.\arabic{theorem}}
+\crefname{theorem}{theorem}{theorems}
+\Crefname{theorem}{Theorem}{Theorems}
+\crefname{lemma}{lemma}{lemmas}
+\Crefname{lemma}{Lemma}{Lemmas}
+\crefname{proposition}{proposition}{propositions}
+\Crefname{proposition}{Proposition}{Propositions}
+\crefname{assumption}{assumption}{assumptions}
+\Crefname{assumption}{Assumption}{Assumptions}
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % Bibliography
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-%Add your bibliography file here
-\addbibresource{references.bib}
-
-% escape % in abstract of bibfile (due to it is perl program)
-\DeclareSourcemap{
-  \maps[datatype = bibtex]{
-    \map{
-       \step[fieldsource = abstract,
-          match = \regexp{([^\\])\%},
-          replace = \regexp{$1\\\%}]
-    }
-  }
+\renewcommand{\bibname}{References}
+\providecommand{\refname}{References}
+\renewcommand{\refname}{References}
+\AtBeginDocument{%
+  \renewcommand{\bibname}{References}%
+  \renewcommand{\refname}{References}%
 }
-
-% prevent certain fields in references from printing in bibliography
-\AtEveryBibitem{\clearfield{abstract}}
-\AtEveryBibitem{\clearlist{abstract}}
-
-\AtEveryBibitem{\clearfield{issn}}
-\AtEveryBibitem{\clearlist{issn}}
-
-\AtEveryBibitem{\clearfield{language}}
-\AtEveryBibitem{\clearlist{language}}
-
-\AtEveryBibitem{\clearfield{doi}}
-\AtEveryBibitem{\clearlist{doi}}
-
-\AtEveryBibitem{\clearfield{url}}
-\AtEveryBibitem{\clearlist{url}}
-
-\AtEveryBibitem{%
-  \ifentrytype{online}
-    {}
-    {\clearfield{urlyear}\clearfield{urlmonth}\clearfield{urlday}}}
 
 % footnote for keywords in abstract
 % https://tex.stackexchange.com/questions/30720/footnote-without-a-marker
@@ -198,6 +231,16 @@ footskip=0.4in
   \renewcommand\thefootnote{}\footnote{#1}%
   \addtocounter{footnote}{-1}%
   \endgroup
+}
+
+% Symbol-marked footnotes for notes that should not look like numeric citations.
+\newcommand\symbolfootnote[2][\ensuremath{\dagger}]{%
+  \begingroup
+  \renewcommand{\thefootnote}{#1}%
+  \footnotemark
+  \footnotetext{#2}%
+  \endgroup
+  \addtocounter{footnote}{-1}%
 }
 %%%%%%%%%%%%%%%%%%%%%%
 % Start of Document
@@ -213,9 +256,11 @@ footskip=0.4in
 \renewcommand{\cftchapaftersnum}{:}
 \renewcommand{\cftchapnumwidth}{7em}
 \setlength{\cftbeforechapskip}{\baselineskip}
-\setlength{\cftbeforesecskip}{2pt}
-\setlength{\cftbeforesubsecskip}{2pt}
-\setlength{\cftbeforesubsubsecskip}{2pt}
+\setlength{\cftbeforesecskip}{4pt}
+\setlength{\cftbeforesubsecskip}{4pt}
+\setlength{\cftbeforesubsubsecskip}{4pt}
+\setcounter{secnumdepth}{3}
+\setcounter{tocdepth}{3}
 
 %format title font size and position (this also applys to list of figures and list of tables)
 \titleformat{\chapter}[display]
@@ -237,12 +282,17 @@ footskip=0.4in
 \titleformat{\subsection}{\normalfont\bfseries}{\thesubsection}{1em}{#1}
 
 % Adjust subsubsection title formatting
-\titleformat{\subsubsection}{\normalfont\itshape}{\thesubsection}{1em}{#1}
+\titleformat{\subsubsection}[hang]{\normalfont\bfseries}{\thesubsubsection}{1em}{#1}
 
 % Change chapter numbers to Roman numerals (I, II, III...)
 \renewcommand{\thechapter}{\Roman{chapter}}
 % Ensure sections, figures, tables, and equations still use arabic chapter numbers (e.g., 2.1, not II.1)
 \renewcommand{\thesection}{\arabic{chapter}.\arabic{section}}
+\renewcommand{\thesubsubsection}{\thesubsection~\Alph{subsubsection}}
+\makeatletter
+\renewcommand{\p@subsubsection}{}
+\renewcommand{\theHsubsubsection}{\arabic{chapter}.\arabic{section}.\arabic{subsection}.\arabic{subsubsection}}
+\makeatother
 \renewcommand{\thefigure}{\arabic{chapter}.\arabic{figure}}
 \renewcommand{\thetable}{\arabic{chapter}.\arabic{table}}
 \renewcommand{\theequation}{\arabic{chapter}.\arabic{equation}}
